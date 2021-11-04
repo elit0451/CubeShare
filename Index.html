@@ -1,186 +1,232 @@
-
 <html>
-    <head>
-        <script>
-        document.addEventListener("DOMContentLoaded", function() {
 
-var satelites = [
-  {
-    name: 'ISS',
-    orbit: {
-      radius: 401,
-      period: 90,
-    },
-  },
-  {
-    name: 'Hubble',
-    orbit: {
-      radius: 500,
-      period: 91110,
-    },
-  },
-  {
-    name: 'Kepler',
-    orbit: {
-      radius: 600,
-      period: 90,
-    },
-  },
-  {
-    name: 'Juno',
-    orbit: {
-      radius: 700,
-      period: 90,
-    },
-  },
-  {
-    name: 'New Horizons',
-    orbit: {
-      radius: 800,
-      period: 90,
-    },
-  },
-  {
-    name: 'Galileo',
-    orbit: {
-      radius: 900,
-      period: 90,
-    },
-  },
-  {
-    name: 'Cassini',
-    orbit: {
-      radius: 1000,
-      period: 90,
-    },
-  },
-  {
-    name: 'Voyager 1',
-    orbit: {
-      radius: 1100,
-      period: 90,
-    },
-  },
-  {
-    name: 'Voyager 2',
-    orbit: {
-      radius: 1200,
-      period: 90,
-    },
-  },
-  {
-    name: 'Galileo',
-    orbit: {
-      radius: 1300,
-      period: 90,
-    },
-  },
-];
+<head>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
 
-var canvas = document.createElement('canvas');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-document.body.appendChild(canvas);
+      var satelites = [
+        {
+          name: 'ISS',
+          orbit: {
+            radius: 401,
+            period: 90,
+          },
+        },
+        {
+          name: 'Hubble',
+          orbit: {
+            radius: 500,
+            period: 91110,
+          },
+        },
+        {
+          name: 'Kepler',
+          orbit: {
+            radius: 600,
+            period: 90,
+          },
+        },
+        {
+          name: 'Juno',
+          orbit: {
+            radius: 700,
+            period: 90,
+          },
+        },
+        {
+          name: 'New Horizons',
+          orbit: {
+            radius: 800,
+            period: 90,
+          },
+        },
+        {
+          name: 'Galileo',
+          orbit: {
+            radius: 900,
+            period: 90,
+          },
+        },
+        {
+          name: 'Cassini',
+          orbit: {
+            radius: 1000,
+            period: 90,
+          },
+        },
+        {
+          name: 'Voyager 1',
+          orbit: {
+            radius: 1100,
+            period: 90,
+          },
+        },
+        {
+          name: 'Voyager 2',
+          orbit: {
+            radius: 1200,
+            period: 90,
+          },
+        },
+        {
+          name: 'Galileo',
+          orbit: {
+            radius: 1300,
+            period: 90,
+          },
+        },
+      ];
 
-var ctx = canvas.getContext('2d');
+      var canvas = document.createElement('canvas');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      document.body.appendChild(canvas);
 
-var render = function() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = '#000';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = '#fff';
-  ctx.font = '20px Arial';
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  for (var i = 0; i < satelites.length; i++) {
-    var s = satelites[i];
-    var x = canvas.width / 2;
-    var y = canvas.height / 2;
-    var angle = (Date.now() / 1000) % (s.orbit.period * 2 * Math.PI);
-    var radius = s.orbit.radius;
-    var dx = Math.cos(angle) * radius;
-    var dy = Math.sin(angle) * radius;
-    ctx.fillText(s.name, x + dx, y + dy);
-  }
-};
+      var ctx = canvas.getContext('2d');
 
-setInterval(render, 1000 / 60);
+      var render = function () {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#fff';
+        ctx.font = '20px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        for (var i = 0; i < satelites.length; i++) {
+          var s = satelites[i];
+          var x = canvas.width / 2;
+          var y = canvas.height / 2;
+          var angle = (Date.now() / 1000) % (s.orbit.period * 2 * Math.PI);
+          var radius = s.orbit.radius;
+          var dx = Math.cos(angle) * radius;
+          var dy = Math.sin(angle) * radius;
+          ctx.fillText(s.name, x + dx, y + dy);
+        }
+      };
 
-var table = document.createElement('table');
-table.innerHTML = '<tr><th>Name</th><th>Orbit</th></tr>';
-for (var i = 0; i < satelites.length; i++) {
-  var s = satelites[i];
-  var row = document.createElement('tr');
-  row.innerHTML = '<td>' + s.name + '</td><td>' + s.orbit.radius + '</td>';
-  table.appendChild(row);
-}
-document.body.appendChild(table);
+      setInterval(render, 1000 / 60);
 
-var booking = document.createElement('div');
-booking.innerHTML = '<form><input type="text" name="name" placeholder="Name"><input type="date" name="start" placeholder="Start"><input type="date" name="end" placeholder="End"><button type="submit">Book</button></form>';
-document.body.appendChild(booking);
+      // Table for Satellites
+      var satellitesForm = document.createElement('form');
+      satellitesForm.innerHTML = '<br>';
 
-var database = [];
+      var fieldset = document.createElement('fieldset');
+      fieldset.setAttribute("style", "width: 150px");
 
-var submit = function(e) {
-  e.preventDefault();
-  var name = e.target.name.value;
-  var start = e.target.start.value;
-  var end = e.target.end.value;
-  database.push({
-    name: name,
-    start: start,
-    end: end,
-  });
-  e.target.name.value = '';
-  e.target.start.value = '';
-  e.target.end.value = '';
-};
+      var legend = document.createElement('legend');
+      legend.innerHTML = '<strong>Available Satellites</strong>';
 
-booking.addEventListener('submit', submit);
+      var tableSats = document.createElement('table');
+      var tbody = document.createElement('tbody');
+      tbody.innerHTML = '<tr><th>Name</th><th>Orbit</th></tr>';
 
-var table = document.createElement('table');
-table.innerHTML = '<tr><th>Name</th><th>Start</th><th>End</th></tr>';
-for (var i = 0; i < database.length; i++) {
-  var s = database[i];
-  var row = document.createElement('tr');
-  row.innerHTML = '<td>' + s.name + '</td><td>' + s.start + '</td><td>' + s.end + '</td>';
-  table.appendChild(row);
-}
-document.body.appendChild(table);
+      for (var i = 0; i < satelites.length; i++) {
+        var s = satelites[i];
+        var row = document.createElement('tr');
+        row.innerHTML = '<td>' + s.name + '</td><td style="text-align: right;">' + s.orbit.radius + '</td>';
+        tbody.appendChild(row);
+      }
 
-var booking = document.createElement('div');
-booking.innerHTML = '<form><input type="text" name="name" placeholder="Name"><input type="date" name="start" placeholder="Start"><input type="date" name="end" placeholder="End"><button type="submit">Book</button></form>';
-document.body.appendChild(booking);
+      tableSats.appendChild(tbody);
+      fieldset.appendChild(tableSats);
+      fieldset.appendChild(legend);
+      satellitesForm.appendChild(fieldset);
+      document.body.appendChild(satellitesForm);
 
-var database = [];
+      var database = [];
 
-var submit = function(e) {
-  e.preventDefault();
-  var name = e.target.name.value;
-  var start = e.target.start.value;
-  var end = e.target.end.value;
-  database.push({
-    name: name,
-    start: start,
-    end: end,
-  });
-  e.target.name.value = '';
-  e.target.start.value = '';
-  e.target.end.value = '';  
-  console.log(database);
-};
+      // Table for Booking
+      var booking = document.createElement('div');
+      booking.innerHTML = `<form>
+                            <fieldset style="width: 601px">
+                              <legend><strong>Booking</strong></legend>
+                              <table>
+                                <tr>
+                                  <td>
+                                    <legend>Name</legend>
+                                    <input type="text" name="name" placeholder="Name">
+                                  <td>
+                                    <legend>Start</legend>
+                                    <input type="date" name="start" placeholder="Start">
+                                  <td>
+                                    <legend>End</legend>
+                                    <input type="date" name="end" placeholder="End">
+                                    <button type="submit">Book</button>
+                                    <button type="button" id="refreshBtn" style="margin-left: 10px">Refresh</button>
+                              </table>
+                            </fieldset>
+                          </form>`;
 
-booking.addEventListener('submit', submit);
-});
-        </script>
-    </head>
-    <body style="margin: 0;">
-        <div style="background-color: black; position: fixed; bottom: 0; width: 100%; height: 20px; padding: 20px; opacity: .85; z-index: 1000;">
-            <svg id="Layer_1" data-name="Layer 1" height="40px" width="40px" style="top: -8px;
-            position: relative;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800"><defs><style>.cls-1{fill:#fff;}</style></defs><title>openai-symbol-flat-white</title><path class="cls-1" d="M617.24,354a126.36,126.36,0,0,0-10.86-103.79,127.8,127.8,0,0,0-137.65-61.32,126.36,126.36,0,0,0-95.31-42.49A127.81,127.81,0,0,0,251.5,234.89,126.4,126.4,0,0,0,167,296.19a127.82,127.82,0,0,0,15.72,149.86,126.36,126.36,0,0,0,10.86,103.79,127.81,127.81,0,0,0,137.65,61.32,126.36,126.36,0,0,0,95.31,42.49A127.81,127.81,0,0,0,548.5,565.11,126.4,126.4,0,0,0,633,503.81,127.82,127.82,0,0,0,617.24,354ZM426.58,620.49a94.79,94.79,0,0,1-60.85-22c.77-.42,2.12-1.16,3-1.7l101-58.34a16.42,16.42,0,0,0,8.3-14.37V381.69l42.69,24.65a1.52,1.52,0,0,1,.83,1.17V525.43A95.18,95.18,0,0,1,426.58,620.49ZM222.34,533.26A94.74,94.74,0,0,1,211,469.56c.75.45,2.06,1.25,3,1.79l101,58.34a16.44,16.44,0,0,0,16.59,0l123.31-71.2v49.3a1.53,1.53,0,0,1-.61,1.31L352.19,568.05A95.16,95.16,0,0,1,222.34,533.26ZM195.77,312.77a94.71,94.71,0,0,1,49.48-41.68c0,.87-.05,2.41-.05,3.48V391.25a16.41,16.41,0,0,0,8.29,14.36L376.8,476.8l-42.69,24.65a1.53,1.53,0,0,1-1.44.13l-102.11-59A95.16,95.16,0,0,1,195.77,312.77Zm350.74,81.62L423.2,323.19l42.69-24.64a1.53,1.53,0,0,1,1.44-.13l102.11,58.95a95.08,95.08,0,0,1-14.69,171.55c0-.88,0-2.42,0-3.49V408.75A16.4,16.4,0,0,0,546.51,394.39ZM589,330.44c-.75-.46-2.06-1.25-3-1.79L485,270.31a16.46,16.46,0,0,0-16.59,0l-123.31,71.2v-49.3a1.53,1.53,0,0,1,.61-1.31L447.81,232A95.07,95.07,0,0,1,589,330.44ZM321.89,418.31l-42.7-24.65a1.52,1.52,0,0,1-.83-1.17V274.57a95.07,95.07,0,0,1,155.9-73c-.77.42-2.11,1.16-3,1.7l-101,58.34a16.41,16.41,0,0,0-8.3,14.36Zm23.19-50L400,336.59l54.92,31.7v63.42L400,463.41l-54.92-31.7Z"/></svg>
-            <div style="display: inline-block; color: white; vertical-align: top; margin-top: 4px; font-family: Helvetica, sans-serif;">
-                            </div>
-        </div>
-    </body>
+      document.body.appendChild(booking);
+
+      var submit = function (e) {
+        e.preventDefault();
+        var name = e.target.name.value;
+        var start = e.target.start.value;
+        var end = e.target.end.value;
+        var object = {
+          name: name,
+          start: start,
+          end: end,
+        };
+
+        database.push(object);
+
+        // Put the object into storage
+        localStorage.setItem('booking', JSON.stringify(object));
+        e.target.name.value = '';
+        e.target.start.value = '';
+        e.target.end.value = '';
+      };
+
+      booking.addEventListener('submit', submit);
+
+      var resTable = document.createElement('table');
+      resTable.setAttribute('id', 'resTable');
+      document.body.appendChild(resTable);
+
+      var refresh = function (e) {
+        if (database.length > 0) {
+          var rowCount = document.getElementById('resTable').rows.length;
+          if (rowCount <= database.length) {
+            resTable.innerHTML = '<div text-align="left" style="display: inline-block; margin-bottom: 10px;"><b>Current Bookings</b></div><br><tr><th>Name</th><th>Start</th><th>End</th></tr>';
+            for (var i = 0; i < database.length; i++) {
+              var s = database[i];
+              var start = new Date(s.start).toLocaleDateString('en', {dateStyle: 'medium'});
+              var end = new Date(s.end).toLocaleDateString('en', {dateStyle: 'medium'});
+              var row = document.createElement('tr');row.innerHTML = '<td style="padding-left: 15px">' + s.name + '</td><td style="padding-right: 15px">' + start + '</td><td>' + end + '</td>';
+              resTable.appendChild(row);
+            }
+          }
+        }
+        document.body.appendChild(resTable);
+      };
+
+      document.getElementById('refreshBtn').addEventListener('click', refresh);
+
+    });
+  </script>
+</head>
+
+<body style="margin: 0;">
+  <div>
+    <svg id="Layer_1" data-name="Layer 1" height="40px" width="40px" style="top: -8px;
+            position: relative;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+      <defs>
+        <style>
+          .cls-1 {
+            fill: #fff;
+          }
+        </style>
+      </defs>
+      <title>openai-symbol-flat-white</title>
+      <path class="cls-1"
+        d="M617.24,354a126.36,126.36,0,0,0-10.86-103.79,127.8,127.8,0,0,0-137.65-61.32,126.36,126.36,0,0,0-95.31-42.49A127.81,127.81,0,0,0,251.5,234.89,126.4,126.4,0,0,0,167,296.19a127.82,127.82,0,0,0,15.72,149.86,126.36,126.36,0,0,0,10.86,103.79,127.81,127.81,0,0,0,137.65,61.32,126.36,126.36,0,0,0,95.31,42.49A127.81,127.81,0,0,0,548.5,565.11,126.4,126.4,0,0,0,633,503.81,127.82,127.82,0,0,0,617.24,354ZM426.58,620.49a94.79,94.79,0,0,1-60.85-22c.77-.42,2.12-1.16,3-1.7l101-58.34a16.42,16.42,0,0,0,8.3-14.37V381.69l42.69,24.65a1.52,1.52,0,0,1,.83,1.17V525.43A95.18,95.18,0,0,1,426.58,620.49ZM222.34,533.26A94.74,94.74,0,0,1,211,469.56c.75.45,2.06,1.25,3,1.79l101,58.34a16.44,16.44,0,0,0,16.59,0l123.31-71.2v49.3a1.53,1.53,0,0,1-.61,1.31L352.19,568.05A95.16,95.16,0,0,1,222.34,533.26ZM195.77,312.77a94.71,94.71,0,0,1,49.48-41.68c0,.87-.05,2.41-.05,3.48V391.25a16.41,16.41,0,0,0,8.29,14.36L376.8,476.8l-42.69,24.65a1.53,1.53,0,0,1-1.44.13l-102.11-59A95.16,95.16,0,0,1,195.77,312.77Zm350.74,81.62L423.2,323.19l42.69-24.64a1.53,1.53,0,0,1,1.44-.13l102.11,58.95a95.08,95.08,0,0,1-14.69,171.55c0-.88,0-2.42,0-3.49V408.75A16.4,16.4,0,0,0,546.51,394.39ZM589,330.44c-.75-.46-2.06-1.25-3-1.79L485,270.31a16.46,16.46,0,0,0-16.59,0l-123.31,71.2v-49.3a1.53,1.53,0,0,1,.61-1.31L447.81,232A95.07,95.07,0,0,1,589,330.44ZM321.89,418.31l-42.7-24.65a1.52,1.52,0,0,1-.83-1.17V274.57a95.07,95.07,0,0,1,155.9-73c-.77.42-2.11,1.16-3,1.7l-101,58.34a16.41,16.41,0,0,0-8.3,14.36Zm23.19-50L400,336.59l54.92,31.7v63.42L400,463.41l-54.92-31.7Z" />
+    </svg>
+    <div
+      style="display: inline-block; color: white; vertical-align: top; margin-top: 4px; font-family: Helvetica, sans-serif;">
+    </div>
+  </div>
+</body>
+
 </html>
