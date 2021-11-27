@@ -1,0 +1,2 @@
+Longitude Latitude Name
+71.706900 -42.604300 Greenland

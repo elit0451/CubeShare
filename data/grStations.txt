@@ -1,0 +1,8 @@
+Latitude Longitude Name
+54.555849 -1.292066 Unknown
+39.236000 -86.305000 USA-KB9JHU
+38.048000 23.739000 Greece-Apomahon
+42.744000 -71.538000 USA-W2BFJ
+56.172000 10.188000 Denmark-AarhusUniversity_UHF
+
+https://network.satnogs.org/stations/
