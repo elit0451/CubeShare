@@ -210,7 +210,21 @@ class TransitCalculator:
         return pd.to_datetime(finish_date_str, format="%d/%m/%Y %X").strftime("%d %b %Y")
 
     def __print_result(self, dict):
+        print()
+        print("Bookings can be completed for:")
+        print()
         for key, value in dict.items():
-            print("Task " + key + ":")
+            print("    Task " + key + ":")
             print("\tWithout bandwidth: " + value[0])
             print("\tWith bandwidth: " + value[1])
+
+
+    def print_tasks(self):
+        for task in self._tasks_loc_list:
+            # Format dates
+            start = task.start_date.strftime("%d/%m/%Y %X")
+            end = task.end_date.strftime("%d/%m/%Y %X")
+
+            print("Task " + task.name + ":")
+            print("\tBooking period: " + self.__format_date(start) + " - " + self.__format_date(end))
+            print("\tHour(s) booked: " + str(int(task.booking_mins / 60)))
