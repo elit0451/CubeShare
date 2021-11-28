@@ -35,6 +35,10 @@ class TransitCalculator:
         i = 0
         while i < st_amount:
             passes_station = self.__calculate_passes(earliest_start, latest_end, self._stations_list[i], sat, True)
+            
+            if(len(passes_station) == 0):
+                print('Satellite does not pass above the station with index: ' + i)
+
             total_st_passes.append(passes_station)
             i += 1
 
@@ -311,7 +315,6 @@ class TransitCalculator:
             for i in range(0, len(list_mins)):
                 mins = list_mins[i]
                 qualified = passes.query('Name == "' + tasks_names[i] + '"')
-                print(qualified.to_string())
                 qualified = qualified.query('(`Cumulative time` == ' + str(mins) + ') or (`Cumulative time` > ' + str(mins) + ')')
                 
                 if(len(qualified.index) == 0):
