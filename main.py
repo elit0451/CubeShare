@@ -1,5 +1,6 @@
 from menu import Menu
 from transitCalculator import TransitCalculator
+import warnings
 
 def main():
     tc_instance = TransitCalculator()
@@ -45,8 +46,7 @@ def __option2(tc_instance):
     print()
     tc_instance.print_tasks()
     print()
-    print('Not implemented yet!!!')
-    #tc_instance.calculate(1, 5)
+    tc_instance.calculate(1, 5)
     print()
     print()
 
@@ -56,10 +56,10 @@ def __option3(tc_instance):
     print()
     tc_instance.print_tasks()
     print()
-    print('Not implemented yet!!!')
-    #tc_instance.calculate(5, 5)
+    tc_instance.calculate(5, 5)
     print()
     print()
 
 if __name__ == "__main__":
+    warnings.filterwarnings('ignore') # Ignore warnings
     main()
